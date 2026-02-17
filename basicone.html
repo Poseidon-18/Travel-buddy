@@ -135,6 +135,7 @@
         <p class="quote-text" id="quoteResult"></p>
     </div>
 </div>
+
 <script>
     // Populate the time dropdown with 30-minute intervals
     const timeSelect = document.getElementById('travelTime');
@@ -149,135 +150,6 @@
         }
     }
 
-    // Set today's date as default
-    document.getElementById('travelDate').valueAsDate = new Date();
-
-    // Load trips when page loads
-    document.addEventListener('DOMContentLoaded', loadAllTrips);
-
-    // Function to load all trips from server
-    async function loadAllTrips() {
-        try {
-            const response = await fetch('/api/trips');
-            const trips = await response.json();
-            displayTrips(trips);
-        } catch (error) {
-            console.error('Error loading trips:', error);
-        }
-    }
-
-    // Function to save a new trip
-    async function saveTrip() {
-        const tripData = {
-            from: document.getElementById('startLocation').value,
-            to: document.getElementById('destination').value,
-            date: document.getElementById('travelDate').value,
-            time: document.getElementById('travelTime').value,
-            people: document.getElementById('peopleCount').value,
-            amount: document.getElementById('amount').value,
-            gender: document.getElementById('gender').value,
-            contact: document.getElementById('Method').value
-        };
-
-        // Validate
-        if (!tripData.from || !tripData.to || !tripData.date || !tripData.amount || !tripData.contact) {
-            alert("Please fill in all details");
-            return;
-        }
-
-        try {
-            const response = await fetch('/api/trips', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(tripData)
-            });
-            
-            const result = await response.json();
-            alert('Trip saved successfully!');
-            loadAllTrips(); // Refresh the list
-            clearForm();
-            document.getElementById('outputCard').style.display = 'none';
-        } catch (error) {
-            console.error('Error saving trip:', error);
-            alert('Error saving trip. Please try again.');
-        }
-    }
-
-    // Function to delete a trip
-    async function deleteTrip(id) {
-        if (!confirm('Are you sure you want to delete this trip?')) return;
-        
-        try {
-            await fetch(`/api/trips/${id}`, {
-                method: 'DELETE'
-            });
-            loadAllTrips(); // Refresh the list
-        } catch (error) {
-            console.error('Error deleting trip:', error);
-        }
-    }
-
-    // Function to display trips
-    function displayTrips(trips) {
-        // Create trips display section if it doesn't exist
-        let tripsSection = document.getElementById('tripsSection');
-        
-        if (!tripsSection) {
-            // Create the trips section
-            const container = document.querySelector('.container');
-            const newSection = document.createElement('div');
-            newSection.id = 'tripsSection';
-            newSection.innerHTML = `
-                <h3 style="margin-top: 30px;">📋 Saved Trips</h3>
-                <div id="tripsList"></div>
-            `;
-            container.appendChild(newSection);
-            tripsSection = newSection;
-        }
-
-        const tripsList = document.getElementById('tripsList');
-        
-        if (trips.length === 0) {
-            tripsList.innerHTML = '<p style="text-align: center; color: #666;">No trips saved yet. Create your first trip!</p>';
-            return;
-        }
-
-        let html = '';
-        trips.forEach(trip => {
-            html += `
-                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--accent);">
-                    <p><strong>${trip.from}</strong> → <strong>${trip.to}</strong></p>
-                    <p>📅 ${formatDate(trip.date)} at ${trip.time}</p>
-                    <p>👥 ${trip.people} ${trip.people > 1 ? 'people' : 'person'} | 💰 ${trip.amount}</p>
-                    <p>👤 ${trip.gender} | 📞 ${trip.contact}</p>
-                    <button onclick="deleteTrip('${trip.id}')" style="background: #ef4444; padding: 5px 10px; font-size: 0.9rem; width: auto;">Delete</button>
-                </div>
-            `;
-        });
-
-        tripsList.innerHTML = html;
-    }
-
-    // Helper function to format date
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    }
-
-    // Function to clear form
-    function clearForm() {
-        document.getElementById('startLocation').value = '';
-        document.getElementById('destination').value = '';
-        document.getElementById('travelDate').valueAsDate = new Date();
-        document.getElementById('peopleCount').value = '1';
-        document.getElementById('amount').value = '';
-        document.getElementById('Method').value = '';
-        document.getElementById('gender').value = 'male';
-    }
-
-    // Keep your existing generateplan function for preview
     function generateplan() {
         const from = document.getElementById('startLocation').value;
         const to = document.getElementById('destination').value;
@@ -300,13 +172,7 @@
         document.getElementById('quoteResult').innerHTML = quote;
         document.getElementById('outputCard').style.display = 'block';
     }
-
-    // Add a Save button next to Generate button
-    const buttonContainer = document.querySelector('.container button');
-    const saveButton = document.createElement('button');
-    saveButton.textContent = '💾 Save Trip';
-    saveButton.onclick = saveTrip;
-    saveButton.style.marginTop = '10px';
-    saveButton.style.backgroundColor = '#10b981';
-    buttonContainer.parentNode.insertBefore(saveButton, buttonContainer.nextSibling);
 </script>
+
+</body>
+</html>
