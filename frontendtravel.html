@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Buddy</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --bg: #d9dadc;
+            --card: #aca7a7;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 { text-align: center; color: var(--primary); margin-bottom: 1.5rem; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+        .full-width { grid-column: span 2; }
+
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover { background-color: #1e293b; }
+
+        #outputCard {
+            margin-top: 20px;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .quote-text { line-height: 1.6; color: #334155; margin: 0; }
+        .label-tag { font-weight: bold; color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Trip Details</h2>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label>From</label>
+            <input type="text" id="startLocation" placeholder="Origin">
+        </div>
+
+        <div class="form-group">
+            <label>To</label>
+            <input type="text" id="destination" placeholder="Destination">
+        </div>
+
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="travelDate">
+        </div>
+
+        <div class="form-group">
+            <label>Time Slot</label>
+            <select id="travelTime">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Total People</label>
+            <input type="number" id="peopleCount" min="1" value="1">
+        </div>
+
+        <div class="form-group">
+            <label>Amount</label>
+            <input type="text" id="amount" placeholder="e.g. amount range you are okay with">
+        </div>
+
+        <div class="form-group">
+            <label>Gender</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group full-width">
+            <label>How to contact you?</label>
+            <input type="text" id="Method" placeholder="e.g. share your phone number, Instagram ID or whatever you feel comfortable with">
+        </div>
+    </div>
+
+    <button onclick="generateplan()">Generate Your Final Plan</button>
+
+    <div id="outputCard">
+        <p class="quote-text" id="quoteResult"></p>
+    </div>
+</div>
+
+<script>
+    // Populate the time dropdown with 30-minute intervals
+    const timeSelect = document.getElementById('travelTime');
+    for (let h = 0; h < 24; h++) {
+        for (let m = 0; m < 60; m += 30) {
+            let hour = h % 12 || 12;
+            let ampm = h < 12 ? 'AM' : 'PM';
+            let minute = m === 0 ? '00' : m;
+            let timeStr = `${hour}:${minute} ${ampm}`;
+            let option = new Option(timeStr, timeStr);
+            timeSelect.add(option);
+        }
+    }
+
+    function generateplan() {
+        const from = document.getElementById('startLocation').value;
+        const to = document.getElementById('destination').value;
+        const date = document.getElementById('travelDate').value;
+        const time = document.getElementById('travelTime').value;
+        const people = document.getElementById('peopleCount').value;
+        const amount = document.getElementById('amount').value;
+        const gender = document.getElementById('gender').value;
+        const contact = document.getElementById('Method').value;
+
+        if (!from || !to || !date || !amount || !contact) {
+            alert("Please fill in all details");
+            return;
+        }
+
+        const personText = people > 1 ? "people" : "person";
+
+        const quote = `This is to confirm a trip for <span class="label-tag">${people} ${personText}</span> traveling from <span class="label-tag">${from}</span> to <span class="label-tag">${to}</span>. The journey is scheduled for <span class="label-tag">${date}</span> during the <span class="label-tag">${time}</span> window. Total amount: <span class="label-tag">${amount}</span>. Contact via: <span class="label-tag">${contact}</span>`;
+        
+        document.getElementById('quoteResult').innerHTML = quote;
+        document.getElementById('outputCard').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
