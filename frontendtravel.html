@@ -6,135 +6,355 @@
     <title>Travel Buddy</title>
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #3b82f6;
-            --bg: #d9dadc;
-            --card: #aca7a7;
+            --primary: #0A192F;      /* Deep Navy Background */
+            --accent: #64FFDA;       /* Vibrant Teal Accent */
+            --bg: #0A192F;           /* Deep Navy */
+            --card: #112240;         /* Slightly Lighter Navy */
+            --surface: #1E2A3A;      /* Elevated Surface */
+            --text-primary: #E6F1FF; /* Off-White */
+            --text-secondary: #8892B0; /* Muted Gray-Blue */
+            --border: #233554;       /* Subtle Border */
+            --danger: #FF6B6B;       /* Soft Red for delete */
+            --success: #64FFDA;      /* Teal for success */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0A192F 0%, #0F1A2E 100%);
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
 
         .container {
             background: var(--card);
             padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(100, 255, 218, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
+            backdrop-filter: blur(0px);
+            animation: fadeIn 0.5s ease-out;
         }
 
-        h2 { text-align: center; color: var(--primary); margin-bottom: 1.5rem; }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 { 
+            text-align: center; 
+            color: var(--text-primary);
+            margin-bottom: 1.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #E6F1FF 0%, #64FFDA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 18px;
         }
 
-        .form-group { margin-bottom: 1.2rem; }
-        .full-width { grid-column: span 2; }
+        .form-group { 
+            margin-bottom: 0.8rem; 
+        }
+        .full-width { 
+            grid-column: span 2; 
+        }
 
-        label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+        label { 
+            display: block; 
+            margin-bottom: 0.6rem; 
+            font-weight: 600; 
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
         input, select {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            padding: 0.9rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
             box-sizing: border-box;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
+        }
+
+        input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
         }
 
         button {
             width: 100%;
             padding: 1rem;
-            background-color: var(--primary);
-            color: white;
+            background: linear-gradient(135deg, var(--accent) 0%, #4CD4B0 100%);
+            color: #0A192F;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
             margin-top: 10px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        button:hover { background-color: #1e293b; }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(100, 255, 218, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
 
         #outputCard {
-            margin-top: 20px;
+            margin-top: 24px;
             padding: 1.5rem;
-            background: #f8fafc;
-            border: 1px dashed var(--accent);
-            border-radius: 8px;
+            background: var(--surface);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
             display: none;
+            animation: slideDown 0.4s ease-out;
         }
 
-        .quote-text { line-height: 1.6; color: #334155; margin: 0; }
-        .label-tag { font-weight: bold; color: var(--accent); }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quote-text { 
+            line-height: 1.7; 
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .label-tag { 
+            font-weight: 700; 
+            color: var(--accent);
+            background: rgba(100, 255, 218, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* Saved Trips Section */
+        #tripsSection {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        #tripsSection h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #tripsSection h3::before {
+            content: "📋";
+            font-size: 1.3rem;
+        }
+
+        .trip-card {
+            background: var(--surface);
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .trip-card:hover {
+            transform: translateX(5px);
+            background: #1E3448;
+        }
+
+        .trip-card p {
+            margin: 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .trip-card p strong {
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .trip-card .trip-route {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        .delete-btn {
+            background: rgba(255, 107, 107, 0.2);
+            color: #FF8A8A;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            width: auto;
+            margin-top: 12px;
+            text-transform: none;
+            letter-spacing: normal;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(255, 107, 107, 0.2) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px -3px rgba(255, 107, 107, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            background: var(--surface);
+            border-radius: 16px;
+            font-style: italic;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--card);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4CD4B0;
+        }
+
+        /* Date input styling */
+        input[type="date"] {
+            color-scheme: dark;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.8);
+            cursor: pointer;
+        }
+
+        /* Select dropdown styling */
+        select option {
+            background: var(--surface);
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Trip Details</h2>
+    <h2>✨ Travel Buddy</h2>
     
     <div class="grid">
         <div class="form-group">
-            <label>From</label>
-            <input type="text" id="startLocation" placeholder="Origin">
+            <label>📍 From</label>
+            <input type="text" id="startLocation" placeholder="Origin city...">
         </div>
 
         <div class="form-group">
-            <label>To</label>
-            <input type="text" id="destination" placeholder="Destination">
+            <label>🎯 To</label>
+            <input type="text" id="destination" placeholder="Destination...">
         </div>
 
         <div class="form-group">
-            <label>Date</label>
+            <label>📅 Date</label>
             <input type="date" id="travelDate">
         </div>
 
         <div class="form-group">
-            <label>Time Slot</label>
+            <label>⏰ Time Slot</label>
             <select id="travelTime">
             </select>
         </div>
 
         <div class="form-group">
-            <label>Total People</label>
+            <label>👥 Total People</label>
             <input type="number" id="peopleCount" min="1" value="1">
         </div>
 
         <div class="form-group">
-            <label>Amount</label>
-            <input type="text" id="amount" placeholder="e.g. amount range you are okay with">
+            <label>💰 Amount</label>
+            <input type="text" id="amount" placeholder="e.g., ₹500-800">
         </div>
 
         <div class="form-group">
-            <label>Gender</label>
+            <label>⚥ Gender</label>
             <select id="gender">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
+                <option value="other">Other</option>
             </select>
         </div>
 
         <div class="form-group full-width">
-            <label>How to contact you?</label>
-            <input type="text" id="Method" placeholder="e.g. share your phone number, Instagram ID or whatever you feel comfortable with">
+            <label>📞 How to contact you?</label>
+            <input type="text" id="Method" placeholder="Phone / Instagram / Email...">
         </div>
     </div>
 
-    <button onclick="generateplan()">Generate Your Final Plan</button>
+    <button onclick="generateplan()">✨ Generate Preview</button>
+    <button onclick="saveTrip()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">💾 Save Trip</button>
 
     <div id="outputCard">
         <p class="quote-text" id="quoteResult"></p>
     </div>
 </div>
+
 <script>
     // Populate the time dropdown with 30-minute intervals
     const timeSelect = document.getElementById('travelTime');
@@ -181,7 +401,7 @@
 
         // Validate
         if (!tripData.from || !tripData.to || !tripData.date || !tripData.amount || !tripData.contact) {
-            alert("Please fill in all details");
+            alert("❌ Please fill in all details");
             return;
         }
 
@@ -195,19 +415,19 @@
             });
             
             const result = await response.json();
-            alert('Trip saved successfully!');
+            alert('✅ Trip saved successfully!');
             loadAllTrips(); // Refresh the list
             clearForm();
             document.getElementById('outputCard').style.display = 'none';
         } catch (error) {
             console.error('Error saving trip:', error);
-            alert('Error saving trip. Please try again.');
+            alert('❌ Error saving trip. Please try again.');
         }
     }
 
     // Function to delete a trip
     async function deleteTrip(id) {
-        if (!confirm('Are you sure you want to delete this trip?')) return;
+        if (!confirm('🗑️ Are you sure you want to delete this trip?')) return;
         
         try {
             await fetch(`/api/trips/${id}`, {
@@ -230,7 +450,7 @@
             const newSection = document.createElement('div');
             newSection.id = 'tripsSection';
             newSection.innerHTML = `
-                <h3 style="margin-top: 30px;">📋 Saved Trips</h3>
+                <h3>Saved Trips</h3>
                 <div id="tripsList"></div>
             `;
             container.appendChild(newSection);
@@ -240,24 +460,32 @@
         const tripsList = document.getElementById('tripsList');
         
         if (trips.length === 0) {
-            tripsList.innerHTML = '<p style="text-align: center; color: #666;">No trips saved yet. Create your first trip!</p>';
+            tripsList.innerHTML = '<div class="empty-state">✨ No trips saved yet. Create your first trip!</div>';
             return;
         }
 
         let html = '';
         trips.forEach(trip => {
             html += `
-                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--accent);">
-                    <p><strong>${trip.from}</strong> → <strong>${trip.to}</strong></p>
-                    <p>📅 ${formatDate(trip.date)} at ${trip.time}</p>
-                    <p>👥 ${trip.people} ${trip.people > 1 ? 'people' : 'person'} | 💰 ${trip.amount}</p>
-                    <p>👤 ${trip.gender} | 📞 ${trip.contact}</p>
-                    <button onclick="deleteTrip('${trip.id}')" style="background: #ef4444; padding: 5px 10px; font-size: 0.9rem; width: auto;">Delete</button>
+                <div class="trip-card">
+                    <p class="trip-route"><strong>${escapeHtml(trip.from)}</strong> → <strong>${escapeHtml(trip.to)}</strong></p>
+                    <p>📅 ${formatDate(trip.date)} at ${escapeHtml(trip.time)}</p>
+                    <p>👥 ${trip.people} ${trip.people > 1 ? 'people' : 'person'} | 💰 ${escapeHtml(trip.amount)}</p>
+                    <p>⚥ ${escapeHtml(trip.gender)} | 📞 ${escapeHtml(trip.contact)}</p>
+                    <button onclick="deleteTrip('${trip.id}')" class="delete-btn">🗑️ Delete Trip</button>
                 </div>
             `;
         });
 
         tripsList.innerHTML = html;
+    }
+
+    // Helper function to escape HTML
+    function escapeHtml(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
     }
 
     // Helper function to format date
@@ -289,24 +517,20 @@
         const contact = document.getElementById('Method').value;
 
         if (!from || !to || !date || !amount || !contact) {
-            alert("Please fill in all details");
+            alert("❌ Please fill in all details");
             return;
         }
 
         const personText = people > 1 ? "people" : "person";
 
-        const quote = `This is to confirm a trip for <span class="label-tag">${people} ${personText}</span> traveling from <span class="label-tag">${from}</span> to <span class="label-tag">${to}</span>. The journey is scheduled for <span class="label-tag">${date}</span> during the <span class="label-tag">${time}</span> window. Total amount: <span class="label-tag">${amount}</span>. Contact via: <span class="label-tag">${contact}</span>`;
+        const quote = `✨ This is to confirm a trip for <span class="label-tag">${people} ${personText}</span> traveling from <span class="label-tag">${escapeHtml(from)}</span> to <span class="label-tag">${escapeHtml(to)}</span>. The journey is scheduled for <span class="label-tag">${formatDate(date)}</span> during the <span class="label-tag">${escapeHtml(time)}</span> window. Total amount: <span class="label-tag">${escapeHtml(amount)}</span>. Contact via: <span class="label-tag">${escapeHtml(contact)}</span>`;
         
         document.getElementById('quoteResult').innerHTML = quote;
         document.getElementById('outputCard').style.display = 'block';
+        
+        // Scroll to output card
+        document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-
-    // Add a Save button next to Generate button
-    const buttonContainer = document.querySelector('.container button');
-    const saveButton = document.createElement('button');
-    saveButton.textContent = '💾 Save Trip';
-    saveButton.onclick = saveTrip;
-    saveButton.style.marginTop = '10px';
-    saveButton.style.backgroundColor = '#10b981';
-    buttonContainer.parentNode.insertBefore(saveButton, buttonContainer.nextSibling);
 </script>
+</body>
+</html>
