@@ -6,16 +6,17 @@
     <title>Travel Buddy</title>
     <style>
         :root {
-            --primary: #0A192F;      /* Deep Navy Background */
-            --accent: #64FFDA;       /* Vibrant Teal Accent */
-            --bg: #0A192F;           /* Deep Navy */
-            --card: #112240;         /* Slightly Lighter Navy */
-            --surface: #1E2A3A;      /* Elevated Surface */
-            --text-primary: #E6F1FF; /* Off-White */
-            --text-secondary: #8892B0; /* Muted Gray-Blue */
-            --border: #233554;       /* Subtle Border */
-            --danger: #FF6B6B;       /* Soft Red for delete */
-            --success: #64FFDA;      /* Teal for success */
+            --primary: #0D0D0D;      
+            --accent: #9B59B6;       
+            --accent-light: #AF7AC5;  
+            --bg: #0D0D0D;          
+            --card: #1C1C1E;         
+            --surface: #2C2C2E;     
+            --text-primary: #F9F9FB; 
+            --text-secondary: #A9A9B0; 
+            --border: #2C2C2E;       
+            --danger: #E74C3C;       
+            --success: #9B59B6;      
         }
 
         * {
@@ -26,7 +27,7 @@
 
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0A192F 0%, #0F1A2E 100%);
+            background: linear-gradient(135deg, #0D0D0D 0%, #1A1A1A 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,7 +39,7 @@
             background: var(--card);
             padding: 2rem;
             border-radius: 24px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(100, 255, 218, 0.1);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(155, 89, 182, 0.2);
             width: 100%;
             max-width: 600px;
             backdrop-filter: blur(0px);
@@ -63,7 +64,7 @@
             font-size: 1.8rem;
             font-weight: 700;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #E6F1FF 0%, #64FFDA 100%);
+            background: linear-gradient(135deg, #F9F9FB 0%, #9B59B6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -108,7 +109,7 @@
         input:focus, select:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.2);
         }
 
         input::placeholder {
@@ -119,8 +120,8 @@
         button {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, var(--accent) 0%, #4CD4B0 100%);
-            color: #0A192F;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
             border: none;
             border-radius: 12px;
             font-weight: 700;
@@ -134,7 +135,7 @@
 
         button:hover { 
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(100, 255, 218, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(155, 89, 182, 0.4);
         }
 
         button:active {
@@ -172,7 +173,7 @@
         .label-tag { 
             font-weight: 700; 
             color: var(--accent);
-            background: rgba(100, 255, 218, 0.1);
+            background: rgba(155, 89, 182, 0.15);
             padding: 2px 6px;
             border-radius: 6px;
             display: inline-block;
@@ -211,7 +212,7 @@
 
         .trip-card:hover {
             transform: translateX(5px);
-            background: #1E3448;
+            background: #3A3A3E;
         }
 
         .trip-card p {
@@ -232,21 +233,21 @@
         }
 
         .delete-btn {
-            background: rgba(255, 107, 107, 0.2);
-            color: #FF8A8A;
+            background: rgba(231, 76, 60, 0.2);
+            color: #E74C3C;
             padding: 8px 16px;
             font-size: 0.85rem;
             width: auto;
             margin-top: 12px;
             text-transform: none;
             letter-spacing: normal;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%);
         }
 
         .delete-btn:hover {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(255, 107, 107, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.3) 0%, rgba(231, 76, 60, 0.2) 100%);
             transform: translateY(-1px);
-            box-shadow: 0 5px 15px -3px rgba(255, 107, 107, 0.2);
+            box-shadow: 0 5px 15px -3px rgba(231, 76, 60, 0.2);
         }
 
         .empty-state {
@@ -258,7 +259,6 @@
             font-style: italic;
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -275,10 +275,9 @@
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #4CD4B0;
+            background: var(--accent-light);
         }
 
-        /* Date input styling */
         input[type="date"] {
             color-scheme: dark;
         }
@@ -288,10 +287,25 @@
             cursor: pointer;
         }
 
-        /* Select dropdown styling */
         select option {
             background: var(--surface);
             color: var(--text-primary);
+        }
+
+        .container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.03) 0%, transparent 70%);
+            pointer-events: none;
         }
     </style>
 </head>
@@ -348,7 +362,7 @@
     </div>
 
     <button onclick="generateplan()">✨ Generate Preview</button>
-    <button onclick="saveTrip()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">💾 Save Trip</button>
+    <button onclick="saveTrip()" style="background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%);">💾 Save Trip</button>
 
     <div id="outputCard">
         <p class="quote-text" id="quoteResult"></p>
@@ -356,7 +370,6 @@
 </div>
 
 <script>
-    // Populate the time dropdown with 30-minute intervals
     const timeSelect = document.getElementById('travelTime');
     for (let h = 0; h < 24; h++) {
         for (let m = 0; m < 60; m += 30) {
@@ -369,16 +382,14 @@
         }
     }
 
-    // Set today's date as default
     document.getElementById('travelDate').valueAsDate = new Date();
 
-    // Load trips when page loads
     document.addEventListener('DOMContentLoaded', loadAllTrips);
 
-    // Function to load all trips from server
     async function loadAllTrips() {
         try {
-            const response = await fetch('/api/trips');
+            const baseUrl = window.location.origin;
+            const response = await fetch(`${baseUrl}/api/trips`);
             const trips = await response.json();
             displayTrips(trips);
         } catch (error) {
@@ -386,7 +397,6 @@
         }
     }
 
-    // Function to save a new trip
     async function saveTrip() {
         const tripData = {
             from: document.getElementById('startLocation').value,
@@ -399,14 +409,14 @@
             contact: document.getElementById('Method').value
         };
 
-        // Validate
         if (!tripData.from || !tripData.to || !tripData.date || !tripData.amount || !tripData.contact) {
             alert("❌ Please fill in all details");
             return;
         }
 
         try {
-            const response = await fetch('/api/trips', {
+            const baseUrl = window.location.origin;
+            const response = await fetch(`${baseUrl}/api/trips`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -416,7 +426,7 @@
             
             const result = await response.json();
             alert('✅ Trip saved successfully!');
-            loadAllTrips(); // Refresh the list
+            loadAllTrips(); // Refresh 
             clearForm();
             document.getElementById('outputCard').style.display = 'none';
         } catch (error) {
@@ -425,27 +435,24 @@
         }
     }
 
-    // Function to delete a trip
     async function deleteTrip(id) {
         if (!confirm('🗑️ Are you sure you want to delete this trip?')) return;
         
         try {
-            await fetch(`/api/trips/${id}`, {
+            const baseUrl = window.location.origin;
+            await fetch(`${baseUrl}/api/trips/${id}`, {
                 method: 'DELETE'
             });
-            loadAllTrips(); // Refresh the list
+            loadAllTrips(); //refresh
         } catch (error) {
             console.error('Error deleting trip:', error);
         }
     }
 
-    // Function to display trips
     function displayTrips(trips) {
-        // Create trips display section if it doesn't exist
         let tripsSection = document.getElementById('tripsSection');
         
         if (!tripsSection) {
-            // Create the trips section
             const container = document.querySelector('.container');
             const newSection = document.createElement('div');
             newSection.id = 'tripsSection';
@@ -480,7 +487,6 @@
         tripsList.innerHTML = html;
     }
 
-    // Helper function to escape HTML
     function escapeHtml(str) {
         if (!str) return '';
         const div = document.createElement('div');
@@ -488,7 +494,6 @@
         return div.innerHTML;
     }
 
-    // Helper function to format date
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
@@ -505,7 +510,6 @@
         document.getElementById('gender').value = 'male';
     }
 
-    // Keep your existing generateplan function for preview
     function generateplan() {
         const from = document.getElementById('startLocation').value;
         const to = document.getElementById('destination').value;
@@ -528,7 +532,6 @@
         document.getElementById('quoteResult').innerHTML = quote;
         document.getElementById('outputCard').style.display = 'block';
         
-        // Scroll to output card
         document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 </script>
